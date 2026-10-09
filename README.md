@@ -2,11 +2,28 @@
 
 <h1 align="center">Applejack</h1>
 
-<p align="center">A native music streaming player for the Linux desktop (GTK4 + libadwaita).</p>
+<p align="center">A native music streaming player for the Linux desktop (GTK4 + libadwaita).<br>
+A free alternative to Cider.</p>
+
+<p align="center"><img src="docs/screenshots/album.png" width="800" alt="Album page"></p>
 
 Applejack looks and feels like a native desktop app and plays your streaming library through the
 official web player at music.apple.com: your library, playlists, radio, lyrics and
 recommendations. You need your own subscription to that service.
+
+> **As is, no support.** Applejack is a personal project shared for free. Bugs are not fixed on
+> request, issues and feature requests may go unanswered, and there are no updates promised. You use
+> it entirely at your own risk and responsibility. The code is yours to do whatever you want with:
+> fork it, change it, ship it (MIT license).
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Full-screen player with word-by-word lyrics](docs/screenshots/fullscreen.png) | ![Lyrics panel](docs/screenshots/lyrics.png) |
+| ![Artist page](docs/screenshots/artist.png) | ![Search](docs/screenshots/search.png) |
+| ![Parametric equalizer](docs/screenshots/eq.png) | ![Integrations: Last.fm, ListenBrainz, Discord](docs/screenshots/prefs.png) |
+| ![KDE Plasma colours (Breeze Dark)](docs/screenshots/kde.png) | ![Mini player](docs/screenshots/mini.png) |
 
 ## Install
 
@@ -134,4 +151,13 @@ and similar licenses; their texts ship in the bundle's `licenses/` folder. The W
 is downloaded by Electron at first start and is not part of this project.
 
 Applejack is an unofficial project. It is not affiliated with, endorsed or sponsored by
-Apple Inc. All trademarks belong to their owners. You need your own subscription.
+Apple Inc. or by the makers of Cider. All trademarks belong to their owners. You need your own
+subscription.
+
+## Disclaimer
+
+The software is provided "as is", without warranty of any kind (see [LICENSE](LICENSE)). The
+author does not fix bugs, answer support requests or guarantee that Applejack keeps working:
+the streaming service can change its web player at any time. Everything you do with Applejack,
+including how you use your account with it, is at your own risk and responsibility. Do whatever
+you like with the code.
