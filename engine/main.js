@@ -132,24 +132,18 @@ function trimHiddenPage() {
 // While hidden, the whole page is display:none. The web player's scripts keep running
 // (MusicKit, playback, our controller), but its UI no longer costs style, layout or
 // paint work, and lazy images stay unloaded. Shown (sign-in, "show"), it renders normally.
-const HIDDEN_CSS = 'html { display: none !important; }';
-let hiddenCssKey = null;
+// The rule is inserted once per document and switched by an attribute on <html>:
+// removeInsertedCSS() did not take the sheet out again in this Electron build, which left the
+// sign-in window blank (the page stayed display:none).
+const HIDDEN_CSS = 'html[data-applejack-hidden] { display: none !important; }';
 async function syncPageVisibility() {
   if (!win || win.isDestroyed()) return;
-  const wc = win.webContents;
+  const hidden = !win.isVisible();
   try {
-    if (win.isVisible() && hiddenCssKey) {
-      const key = hiddenCssKey;
-      hiddenCssKey = null;
-      await wc.removeInsertedCSS(key);
-    } else if (!win.isVisible() && !hiddenCssKey) {
-      hiddenCssKey = 'pending';
-      hiddenCssKey = await wc.insertCSS(HIDDEN_CSS, { cssOrigin: 'user' });
-      if (win.isVisible()) syncPageVisibility(); // shown while inserting
-    }
+    await win.webContents.executeJavaScript(
+      `document.documentElement.toggleAttribute('data-applejack-hidden', ${hidden}), void 0`, true);
   } catch (e) {
-    hiddenCssKey = null;
-    log('page visibility css:', e.message);
+    log('page visibility:', e.message);
   }
 }
 
@@ -183,7 +177,7 @@ async function createWindow() {
   win.on('hide', syncPageVisibility);
   // Inserted CSS belongs to the document: put it back on every (re)load, before the page lays out.
   win.webContents.on('dom-ready', () => {
-    hiddenCssKey = null;
+    win.webContents.insertCSS(HIDDEN_CSS, { cssOrigin: 'user' }).catch((e) => log('hidden css:', e.message));
     syncPageVisibility();
   });
 
@@ -325,6 +319,14 @@ async function handle(method, params) {
         widevine: electron.components ? electron.components.status() : null,
       };
     case 'show': win.show(); return true;
+    // Dev aid: the page as rendered, saved as PNG.
+    case 'capture': {
+      const img = await win.webContents.capturePage();
+      fs.writeFileSync(params.path, img.toPNG());
+      const page = await win.webContents.executeJavaScript(
+        '[getComputedStyle(document.documentElement).display, document.body ? document.body.innerText.length : -1, location.href].join(" | ")');
+      return { width: img.getSize().width, height: img.getSize().height, visible: win.isVisible(), page };
+    }
     case 'hide': win.hide(); return true;
     case 'reload': pageReady = new Promise((r) => (markPageReady = r)); win.webContents.reload(); return true;
     case 'login': return login();

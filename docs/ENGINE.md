@@ -181,3 +181,5 @@ mini player (Ctrl+Shift+M; kept on top via a KWin script on Plasma, hyprctl / sw
 Plasma colour scheme support. Release builds can bake in `APPLEJACK_LASTFM_KEY`, `APPLEJACK_LASTFM_SECRET`
 and `APPLEJACK_DISCORD_CLIENT_ID` (environment at build time). Dev snapshots also take `AM_GTK_FULL=1`,
 `AM_GTK_MINI=1`, `AM_GTK_PREFS=integrations`, `AM_GTK_EDIT=<playlist id>`.
+- `capture {path}` (dev aid) saves the engine window's page as a PNG and reports its computed `display`.
+  While the window is hidden the page carries `data-applejack-hidden` on `<html>` (display: none).
