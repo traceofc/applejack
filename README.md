@@ -5,6 +5,22 @@
 <p align="center">A native music streaming player for the Linux desktop (GTK4 + libadwaita).<br>
 A free alternative to Cider.</p>
 
+<p align="center">
+  <a href="https://github.com/traceofc/applejack/releases/latest"><img src="https://img.shields.io/github/v/release/traceofc/applejack?label=release&color=e8455c" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/platform-Linux%20x86__64-informational" alt="Linux x86_64">
+  <img src="https://img.shields.io/badge/GNOME%20%7C%20KDE%20Plasma-supported-success" alt="GNOME and KDE Plasma">
+  <img src="https://img.shields.io/badge/made%20with-Rust%20%2B%20GTK4-orange" alt="Rust + GTK4">
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#what-it-can-do">Features</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#scrobbling-and-discord">Scrobbling &amp; Discord</a> ·
+  <a href="#disclaimer">Disclaimer</a>
+</p>
+
 <p align="center"><img src="docs/screenshots/album.png" width="800" alt="Album page"></p>
 
 Applejack looks and feels like a native desktop app and plays your streaming library through the
