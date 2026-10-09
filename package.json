@@ -1,0 +1,15 @@
+{
+  "name": "applejack-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Applejack playback engine: headless music player (castLabs Electron + MusicKit JS v3, JSON-lines RPC over stdio)",
+  "main": "engine/main.js",
+  "scripts": {
+    "setup": "bash scripts/setup.sh",
+    "engine": "electron engine/main.js",
+    "cli": "node cli.js"
+  },
+  "dependencies": {
+    "electron": "https://github.com/castlabs/electron-releases/archive/refs/tags/v44.5.1%2Bwvcus.tar.gz"
+  }
+}

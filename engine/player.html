@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- devtoken mode: our own page on http://127.0.0.1, MusicKit configured with the
+     user's developer token supplied by the engine through the preload bridge. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>am-engine player</title>
+  <style>body { font: 14px system-ui, sans-serif; margin: 2em; }</style>
+  <script>
+    document.addEventListener('musickitloaded', async () => {
+      const status = document.getElementById('status');
+      try {
+        const cfg = await window.__amBridge.config();
+        if (!cfg || !cfg.developerToken) throw new Error('no developer token');
+        await MusicKit.configure({ developerToken: cfg.developerToken, app: cfg.app });
+        status.textContent = 'MusicKit configured.';
+      } catch (e) {
+        status.textContent = 'MusicKit configure failed: ' + e.message;
+        window.__amBridge.emit('error', { message: 'configure failed: ' + e.message });
+      }
+    });
+  </script>
+  <script src="https://js-cdn.music.apple.com/musickit/v3/musickit.js" data-web-components async></script>
+</head>
+<body>
+  <h1>am-engine</h1>
+  <p id="status">Loading MusicKit…</p>
+</body>
+</html>

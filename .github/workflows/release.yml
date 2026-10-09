@@ -1,0 +1,36 @@
+# Push a tag like v0.1.0 and this builds dist/applejack-x86_64.tar.gz and attaches it to a
+# GitHub Release, which is what get.sh downloads.
+# Built on Fedora 41 (glibc 2.40, GTK 4.16, libadwaita 1.6), so the binary runs on that
+# and anything newer: current Arch, Fedora 41+, Ubuntu 25.04+, Debian 13, openSUSE Tumbleweed.
+name: release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: fedora:41
+    steps:
+      - name: Build dependencies
+        run: dnf install -y git nodejs npm cargo rust gcc gtk4-devel libadwaita-devel sqlite-devel python3 tar gzip
+      - uses: actions/checkout@v4
+      - name: Package
+        run: bash scripts/package.sh
+        # Optional: baked into the binary so users don't need their own (Settings → Secrets → Actions).
+        env:
+          APPLEJACK_LASTFM_KEY: ${{ secrets.APPLEJACK_LASTFM_KEY }}
+          APPLEJACK_LASTFM_SECRET: ${{ secrets.APPLEJACK_LASTFM_SECRET }}
+          APPLEJACK_DISCORD_CLIENT_ID: ${{ secrets.APPLEJACK_DISCORD_CLIENT_ID }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: applejack-x86_64
+          path: dist/applejack-x86_64.tar.gz
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/applejack-x86_64.tar.gz
+          generate_release_notes: true

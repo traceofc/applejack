@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=Applejack
+GenericName=Music Player
+GenericName[ru]=Музыкальный проигрыватель
+Comment=Native music streaming player
+Comment[ru]=Нативный музыкальный плеер
+Exec=@BIN@
+Icon=io.github.traceofc.Applejack
+Terminal=false
+Categories=Audio;AudioVideo;Player;GTK;
+Keywords=music;player;streaming;lyrics;
+Keywords[ru]=музыка;плеер;
+StartupNotify=true
+StartupWMClass=io.github.traceofc.Applejack

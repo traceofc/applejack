@@ -1,0 +1,20 @@
+[package]
+name = "applejack"
+version = "0.1.0"
+edition = "2024"
+description = "Applejack: native GNOME (GTK4/libadwaita) music streaming client, driving the applejack-engine playback engine"
+license = "MIT"
+
+[dependencies]
+gtk = { package = "gtk4", version = "0.11", features = ["v4_14"] }
+adw = { package = "libadwaita", version = "0.9", features = ["v1_6"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+async-channel = "2"
+rusqlite = "0.40"
+ureq = "3"
+toml = "0.8"
+libc = "0.2"
+
+[profile.release]
+lto = "thin"

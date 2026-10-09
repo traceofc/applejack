@@ -1,0 +1,45 @@
+# Зависимости и бинарники (ставятся через install.sh / npm run setup)
+node_modules/
+ui/target/
+target/
+dist/
+out/
+*.tar.gz
+*.zip
+*.AppImage
+
+# Логи
+*.log
+logs/
+
+# Секреты и данные сессии — никогда не коммитить
+*.jwt
+*.p8
+*.pem
+*.key
+.env
+.env.*
+devtoken*
+cookies*
+Cookies*
+Local Storage/
+IndexedDB/
+Session Storage/
+WidevineCdm/
+profile/
+.config/
+.cache/
+*.sqlite
+*.sqlite-*
+*.db
+
+# Редакторы и система
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+.claude/
+
+# Benchmark output
+perf/results/

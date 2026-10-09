@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Applejack: an apple filled with applejack brandy, the stem and leaf drawn as a music note. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a1d0e"/>
+      <stop offset="1" stop-color="#170a04"/>
+    </linearGradient>
+    <linearGradient id="brandy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0a040"/>
+      <stop offset="0.55" stop-color="#cf6a1c"/>
+      <stop offset="1" stop-color="#8e3510"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff6e8"/>
+      <stop offset="1" stop-color="#f6dcb8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.62" r="0.5">
+      <stop offset="0" stop-color="#e2832c" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#e2832c" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="apple">
+      <path id="applePath" d="M512 352 C452 300 330 296 282 392 C232 492 262 652 334 734 C384 792 442 810 512 780 C582 810 640 792 690 734 C762 652 792 492 742 392 C694 296 572 300 512 352 Z"/>
+    </clipPath>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect width="1024" height="1024" fill="url(#glow)"/>
+  <g transform="translate(512 540) scale(1.12) translate(-512 -540)">
+  <g clip-path="url(#apple)">
+    <rect x="200" y="250" width="624" height="600" fill="url(#glass)"/>
+    <path d="M200 548 C320 516 420 584 512 552 C604 520 704 588 824 556 L824 860 L200 860 Z" fill="url(#brandy)"/>
+    <path d="M200 548 C320 516 420 584 512 552 C604 520 704 588 824 556" fill="none" stroke="#ffd08a" stroke-width="10" stroke-opacity="0.8"/>
+  </g>
+  <!-- stem + leaf = eighth note -->
+  <path d="M508 356 C506 300 510 256 520 214" fill="none" stroke="#fff6e8" stroke-width="26" stroke-linecap="round"/>
+  <path d="M520 214 C588 220 636 262 626 336 C604 298 566 280 524 276 Z" fill="#fff6e8"/>
+  <!-- glint -->
+  <path d="M330 470 C330 420 352 386 392 370" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round" stroke-opacity="0.55"/>
+  </g>
+</svg>
