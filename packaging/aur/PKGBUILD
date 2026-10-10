@@ -1,0 +1,29 @@
+# Maintainer: traceofc <traceofc@gmail.com>
+# Updated automatically on each GitHub release by .github/workflows/aur.yml.
+pkgname=applejack-bin
+pkgver=0.1.1
+pkgrel=1
+pkgdesc='Native GTK4/libadwaita music streaming client'
+arch=('x86_64')
+url='https://github.com/traceofc/applejack'
+license=('GPL-3.0-or-later')
+depends=('gtk4' 'libadwaita' 'gtk3' 'nss' 'alsa-lib' 'libcups' 'mesa' 'libxkbcommon' 'sqlite')
+provides=('applejack')
+conflicts=('applejack')
+options=('!strip' '!debug')
+source=("applejack-$pkgver-x86_64.tar.gz::$url/releases/download/v$pkgver/applejack-x86_64.tar.gz")
+sha256sums=('713f4fd562e2d521d3acdee2357370410958df4481871e22930a0ef211c56ae3')
+
+package() {
+  cd applejack
+  local app_id=io.github.traceofc.Applejack
+  install -d "$pkgdir/usr/lib" "$pkgdir/usr/bin"
+  cp -a app "$pkgdir/usr/lib/applejack"
+  ln -s /usr/lib/applejack/applejack "$pkgdir/usr/bin/applejack"
+  install -d "$pkgdir/usr/share/icons"
+  cp -a share/icons/hicolor "$pkgdir/usr/share/icons/"
+  sed 's|@BIN@|/usr/bin/applejack|' "share/applications/$app_id.desktop.in" \
+    | install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/$app_id.desktop"
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  cp -a licenses/. "$pkgdir/usr/share/licenses/$pkgname/"
+}

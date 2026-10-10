@@ -1,0 +1,24 @@
+pkgbase = applejack-bin
+	pkgdesc = Native GTK4/libadwaita music streaming client
+	pkgver = 0.1.1
+	pkgrel = 1
+	url = https://github.com/traceofc/applejack
+	arch = x86_64
+	license = GPL-3.0-or-later
+	depends = gtk4
+	depends = libadwaita
+	depends = gtk3
+	depends = nss
+	depends = alsa-lib
+	depends = libcups
+	depends = mesa
+	depends = libxkbcommon
+	depends = sqlite
+	provides = applejack
+	conflicts = applejack
+	options = !strip
+	options = !debug
+	source = applejack-0.1.1-x86_64.tar.gz::https://github.com/traceofc/applejack/releases/download/v0.1.1/applejack-x86_64.tar.gz
+	sha256sums = 713f4fd562e2d521d3acdee2357370410958df4481871e22930a0ef211c56ae3
+
+pkgname = applejack-bin

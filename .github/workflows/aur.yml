@@ -1,0 +1,74 @@
+# Updates the applejack-bin AUR package to a release: sets pkgver, the tarball's sha256 and
+# .SRCINFO in packaging/aur, then pushes them to ssh://aur@aur.archlinux.org/applejack-bin.git.
+# Called by release.yml once the release is published (a release made with GITHUB_TOKEN
+# doesn't trigger other workflows), or run by hand from the Actions tab for an existing tag.
+# Needs the AUR_SSH_PRIVATE_KEY secret; without it the job only prints a notice.
+name: aur
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+    secrets:
+      AUR_SSH_PRIVATE_KEY:
+        required: false
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, e.g. v0.1.1
+        required: true
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+      - name: Update and push
+        env:
+          TAG: ${{ inputs.tag }}
+          AUR_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [[ -z $AUR_KEY ]]; then
+            echo "::notice::AUR_SSH_PRIVATE_KEY is not set, skipping the AUR update"
+            exit 0
+          fi
+          ver=${TAG#v}
+          if [[ $ver == *-* ]]; then
+            echo "::notice::$TAG looks like a pre-release, skipping the AUR update"
+            exit 0
+          fi
+          pacman -Syu --noconfirm --needed git openssh
+
+          install -dm700 ~/.ssh
+          printf '%s\n' "$AUR_KEY" > ~/.ssh/aur
+          chmod 600 ~/.ssh/aur
+          ssh-keyscan -t ed25519 aur.archlinux.org >> ~/.ssh/known_hosts
+          printf 'Host aur.archlinux.org\n  User aur\n  IdentityFile ~/.ssh/aur\n' > ~/.ssh/config
+          git config --global user.name 'traceofc'
+          git config --global user.email 'traceofc@gmail.com'
+
+          # makepkg refuses to run as root.
+          useradd -m builder
+          cp -r packaging/aur /home/builder/pkg
+          chown -R builder: /home/builder/pkg
+          cd /home/builder/pkg
+          sed -i "s/^pkgver=.*/pkgver=$ver/; s/^pkgrel=.*/pkgrel=1/" PKGBUILD
+          url=https://github.com/${{ github.repository }}/releases/download/$TAG/applejack-x86_64.tar.gz
+          sum=$(curl -fsSL "$url" | sha256sum | cut -d' ' -f1)
+          sed -i "s/^sha256sums=.*/sha256sums=('$sum')/" PKGBUILD
+          su builder -c 'makepkg --printsrcinfo' > .SRCINFO
+
+          git clone ssh://aur@aur.archlinux.org/applejack-bin.git /tmp/aur
+          cp PKGBUILD .SRCINFO /tmp/aur/
+          cd /tmp/aur
+          git add PKGBUILD .SRCINFO
+          if git diff --cached --quiet; then
+            echo "AUR package is already at $ver"
+          else
+            git commit -m "Update to $ver"
+            git push origin HEAD:master
+          fi

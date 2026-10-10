@@ -34,3 +34,11 @@ jobs:
         with:
           files: dist/applejack-x86_64.tar.gz
           generate_release_notes: true
+
+  aur:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    uses: ./.github/workflows/aur.yml
+    with:
+      tag: ${{ github.ref_name }}
+    secrets: inherit
