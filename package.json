@@ -2,6 +2,7 @@
   "name": "applejack-engine",
   "version": "0.1.1",
   "private": true,
+  "license": "GPL-3.0-or-later",
   "description": "Applejack playback engine: headless music player (castLabs Electron + MusicKit JS v3, JSON-lines RPC over stdio)",
   "main": "engine/main.js",
   "scripts": {

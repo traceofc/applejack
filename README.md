@@ -7,7 +7,7 @@ A free alternative to Cider.</p>
 
 <p align="center">
   <a href="https://github.com/traceofc/applejack/releases/latest"><img src="https://img.shields.io/github/v/release/traceofc/applejack?label=release&color=e8455c" alt="Latest release"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue" alt="GPL-3.0-or-later license"></a>
   <img src="https://img.shields.io/badge/platform-Linux%20x86__64-informational" alt="Linux x86_64">
   <img src="https://img.shields.io/badge/GNOME%20%7C%20KDE%20Plasma-supported-success" alt="GNOME and KDE Plasma">
   <img src="https://img.shields.io/badge/made%20with-Rust%20%2B%20GTK4-orange" alt="Rust + GTK4">
@@ -29,8 +29,8 @@ recommendations. You need your own subscription to that service.
 
 > **As is, no support.** Applejack is a personal project shared for free. Bugs are not fixed on
 > request, issues and feature requests may go unanswered, and there are no updates promised. You use
-> it entirely at your own risk and responsibility. The code is yours to do whatever you want with:
-> fork it, change it, ship it (MIT license).
+> it entirely at your own risk and responsibility. The code is free software: fork it, change it,
+> ship it, as long as your version stays open source under the same license (GPL-3.0-or-later).
 
 ## Screenshots
 
@@ -161,7 +161,12 @@ icon generation, `packaging/` files that go into the release bundle.
 
 ## License
 
-Applejack is MIT licensed (see [LICENSE](LICENSE)). The release bundle also contains
+Applejack is free software, licensed under the GNU General Public License, version 3 or (at your
+option) any later version (GPL-3.0-or-later, see [LICENSE](LICENSE)). If you distribute Applejack
+or a modified version, you must make its source available under the same license. Releases up to
+and including v0.1.1 were published under the MIT license and stay available under it.
+
+The release bundle also contains
 castLabs Electron (MIT, with Chromium's licenses) and Rust crates under MIT, Apache-2.0
 and similar licenses; their texts ship in the bundle's `licenses/` folder. The Widevine module
 is downloaded by Electron at first start and is not part of this project.
@@ -175,5 +180,5 @@ subscription.
 The software is provided "as is", without warranty of any kind (see [LICENSE](LICENSE)). The
 author does not fix bugs, answer support requests or guarantee that Applejack keeps working:
 the streaming service can change its web player at any time. Everything you do with Applejack,
-including how you use your account with it, is at your own risk and responsibility. Do whatever
-you like with the code.
+including how you use your account with it, is at your own risk and responsibility. You are free
+to use, change and share the code under the terms of the GPL.
